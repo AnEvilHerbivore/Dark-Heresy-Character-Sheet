@@ -1,0 +1,43 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Sector 86</title>
+    <link href='https://fonts.googleapis.com/css?family=Aldrich' rel='stylesheet'>
+    <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
+</head>
+<body>
+    <nav>
+        {% if user.is_authenticated %}
+            <form action="{% url 'room_service:logout' %}" method="get">
+                <input type="submit" value="Logout">
+            </form>
+            <form action="{% url 'room_service:room_create' %}" method="get">
+                <input type="submit" value="Create New Room">
+            </form>
+            <form action="{% url 'room_service:room_join' %}" method="get">
+                    <input type="submit" value="Join Room">
+            </form>
+        {% else %}
+            <form action="{% url 'room_service:login' %}" method="get">
+                <input type="submit" value="Login">
+            </form>
+            <form action="{% url 'room_service:register' %}" method="get">
+                <input type="submit" value="Register">
+            </form>
+        {% endif %}
+    </nav>
+    <div id='content'>
+        {% block content %}
+            <h1>Welcome to Sector 86</h1>
+            {% if user.is_authenticated %}
+                <p>Welcome to Sector 86! Create a room to start building your station!</p>
+                <p>Note: This site requires Javascript. If you have disabled Javascript, please enable it for this site.</p>
+            {% endif %}
+        {% endblock %}
+    </div>
+</body>
+</html>
